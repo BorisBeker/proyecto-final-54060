@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { collection, getDocs, getFirestore, query, where, addDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -33,4 +33,12 @@ export async function filterCategory(cat){
     const filter = [];
     querySnapshot.forEach(doc => filter.push({id:doc.id, ...doc.data()}))
     return filter;
+}
+
+// orden de compra
+
+export async function sendOrder(order){
+    const ordersCollection = collection(db, 'orders');
+    const docRef = await addDoc(ordersCollection, order)
+    console.log("docref: " + docRef)
 }

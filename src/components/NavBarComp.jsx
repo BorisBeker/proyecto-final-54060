@@ -1,12 +1,8 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import ProfileComp from "./ProfileComp"
 
 export default function NavBarComp() {
     const navigate = useNavigate();
-
-    const handleClick = (dir) =>{
-        navigate(`/${dir}`)
-    }
 
     return (
         <>
@@ -23,8 +19,8 @@ export default function NavBarComp() {
                     </div>
 
                     <ul className="flex items-center justify-center gap-10 w-2/4">
-                        <li><a className="text-white font-sans font-bold text-xl cursor-pointer" onClick={()=>{handleClick('')}}>INICIO</a></li>
-                        <li><a className="text-white font-sans font-bold text-xl cursor-pointer" onClick={()=>{handleClick('')}} href="#productos">JUEGOS</a></li>
+                        <li><Link className="text-white font-sans font-bold text-xl cursor-pointer" to="/proyecto-final-54060">INICIO</Link></li>
+                        <li><Link className="text-white font-sans font-bold text-xl cursor-pointer" to="/productos">JUEGOS</Link></li>
                     </ul>
                     <div className="flex justify-end w-1/4">
                         <ProfileComp />

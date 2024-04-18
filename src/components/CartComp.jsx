@@ -1,5 +1,6 @@
 import { useContext, useState } from "react"
 import { CartContext } from "../context/CartContext"
+import { sendOrder } from "../firebase/firebase";
 
 export default function CartComp() {
     const [product, setProduct, count] = useContext(CartContext);
@@ -11,7 +12,21 @@ export default function CartComp() {
     }
 
     const handleClick2 = () =>{
-        localStorage.setItem('nuevaCompra', JSON.stringify(product))
+        const precioTotal = product.reduce((total, producto)=>{
+            return total + producto.price
+        }, 0)
+
+        const newOrder = {
+            buyer: {
+                name:"pepito",
+                email:"pepi@to.com",
+                phone:"13553131",
+            },
+            items: product,
+            total: precioTotal
+        };
+
+        sendOrder(newOrder)
     }
 
     const toggleMenu = () => {
@@ -27,8 +42,8 @@ export default function CartComp() {
                     <div className="flex flex-col items-start z-10 absolute right-5 top-28 min-w-80 p-4 bg-white rounded-xl">
                         <h3 className="ml-2 font-sans font-extrabold text-xl">Carrito:</h3>
                         <ul className="w-full">
-                            {product.map((prod, index) => (
-                                <li key={index} className="m-2 w-100 flex justify-between items-center font-sans">
+                            {product.map((prod) => (
+                                <li key={prod.id} className="m-2 w-100 flex justify-between items-center font-sans">
                                     {prod.title} - ${prod.price}
                                 </li>
                             ))}

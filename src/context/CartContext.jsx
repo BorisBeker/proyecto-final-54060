@@ -5,7 +5,6 @@ export const CartContext = createContext();
 export function CartProvider({children}){
     const [product, setProduct] = useState([]);
     function count(){
-        console.log(product)
         return product.length;
     }
     return (
