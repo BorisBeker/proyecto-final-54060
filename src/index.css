@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/*Esto solo funciona en algunos navegadores*/
 html {
     scroll-behavior: smooth;
 }
@@ -13,24 +14,4 @@ html {
 .contenedor-texto::-webkit-scrollbar-thumb {
 	background: white;
 	border-radius: 5px;
-}
-
-.carousel-container {
-    height: 487px
-}
-
-.carousel-slide {
-    transition: transform 0.5s ease;
-    -webkit-transition: transform 0.5s ease;
-    -moz-transition: transform 0.5s ease;
-    -ms-transition: transform 0.5s ease;
-    -o-transition: transform 0.5s ease;
-}
-
-.carousel-image {
-    height: auto;
-}
-
-.carousel-gradient {
-    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8));
 }

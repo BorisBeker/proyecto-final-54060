@@ -1,5 +1,5 @@
 import Perfil from "../assets/perfil.webp"
-import CartComp from "./CartComp";
+import CartWidget from "./CartComponents/CartWidget";
 
 export default function ProfileComp() {
     return(
@@ -9,7 +9,7 @@ export default function ProfileComp() {
                     <img className="mr-2 h-8 w-8 rounded-full" src={Perfil} alt="Imagen de usuario" />
                     <h2 className="text-white font-sans font-extrabold uppercase">pedro pascal</h2>
                 </button>
-                <CartComp/>
+                <CartWidget/>
             </div>
         </>
     )

@@ -3,11 +3,12 @@ import { useEffect } from 'react'
 import HomeComponent from './components/HomeComponent'
 import NavBarComp from './components/NavBarComp'
 import FooterComp from './components/FooterComp'
-import ProductsComp from './components/ProductsComp'
+import ProductsComp from './components/ItemComponents/ItemList'
 import CategoryComp from './components/CategoryComp'
-import ProductComp from './components/ProductComp'
+import ProductComp from './components/ItemComponents/ItemDetail'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
+import Checkout from './components/Checkout'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
             <Route exact path="/footer" element={<FooterComp />} />
             <Route exact path="/category/:cateId" element={<CategoryComp />} />
             <Route exact path="/product/:prodId" element={<ProductComp />} />
+            <Route exact path="/checkout" element={<Checkout/>} />
           </Routes>
           <FooterComp/>
         </CartProvider>

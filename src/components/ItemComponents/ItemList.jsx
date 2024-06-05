@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getProducts } from "../firebase/firebase"
+import { getProducts } from "../../firebase/firebase"
 import { useNavigate } from "react-router-dom";
 
 export default function ProductsComp() {
@@ -48,7 +48,8 @@ export default function ProductsComp() {
                                 <img className="h-60 w-44 mt-4 object-cover rounded-lg" src={prod.image} alt="juego" />
                                 <h3 className="m-2 text-white font-sans font-bold text-2xl">{prod.title}</h3>
                                 <div className="contenedor-texto p-2 h-20 w-48 overflow-auto bg-cyan-300/10 rounded-lg text-white font-sans font-medium text-sm text-start">{prod.description}</div>
-                                <div className="m-2 flex gap-1">
+                                <span className="text-white font-sans font-normal text-xl">Stock de claves: {prod.stock}</span>
+                                <div className="m-2 mt-0 flex gap-1">
                                     <span className="text-teal-500 font-sans font-light text-xl">OFF 5%</span>
                                     <span className="text-white font-sans font-light text-xl">${prod.price}</span>
                                 </div>
