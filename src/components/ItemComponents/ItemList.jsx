@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { getProducts } from "../../firebase/firebase"
+import { db } from "../../firebase/firebase"
+import { getDocs, collection } from "firebase/firestore"
 import { useNavigate } from "react-router-dom";
 
 export default function ProductsComp() {
@@ -11,11 +12,14 @@ export default function ProductsComp() {
         navigate(`/product/${prodId}`)
     }
 
-    const handleClick2 = (categoria) => {
-        navigate(`/category/${categoria}`)
-    }
-
     const [myGames, setMyGames] = useState([])
+
+    async function getProducts() {
+        const response = await getDocs(collection(db, 'games'));
+        const listGames = [];
+        response.forEach(doc => listGames.push({ id: doc.id, ...doc.data() }));
+        return listGames;
+    }
 
     async function getGames() {
         setIsLoading(true);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { filterCategory } from "../firebase/firebase"
+import { db } from "../firebase/firebase"
+import { getDocs, collection, query, where } from "firebase/firestore"
 
 export default function CategoryComp() {
     const navigate = useNavigate();
@@ -13,6 +14,13 @@ export default function CategoryComp() {
 
     async function handleClick2(categoria) {
         navigate(`/category/${categoria}`);
+    }
+
+    async function filterCategory(cat) {
+        const querySnapshot = await getDocs(query(collection(db, 'games'), where('category', '==', cat)));
+        const filter = [];
+        querySnapshot.forEach(doc => filter.push({ id: doc.id, ...doc.data() }))
+        return filter;
     }
 
     async function getGames() {

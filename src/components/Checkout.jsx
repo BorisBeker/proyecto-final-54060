@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
-import { sendOrder, updateStock } from "../firebase/firebase";
-import { getDoc } from "firebase/firestore"
+import { db } from "../firebase/firebase";
+import { getDoc, updateDoc, doc, addDoc, collection } from "firebase/firestore"
 
 export default function Checkout() {
     const [product, setProduct, count, productosAgrupados] = useContext(CartContext);
+
     const [buyerInfo, setBuyerInfo] = useState({
         name: "",
         email: "",
@@ -18,6 +19,26 @@ export default function Checkout() {
         });
     };
 
+    const sendOrder = async (order) => {
+        const ordersCollection = collection(db, 'orders');
+        const docRef = await addDoc(ordersCollection, order)
+    };
+
+    const updateStock = async (productId, cantidad) => {
+        const productRef = doc(db, "games", productId);
+        const productSnap = await getDoc(productRef);
+    
+        if (productSnap.exists()) {
+            const newStock = productSnap.data().stock - cantidad;
+    
+            if (newStock >= 0) {
+                await updateDoc(productRef, {
+                    stock: newStock
+                });
+            }
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -28,7 +49,7 @@ export default function Checkout() {
             items: product,
             total: precioTotal
         };
-        console.log(product)
+
         await sendOrder(newOrder);
 
         for (const prod of productosAgrupados) {
@@ -36,7 +57,6 @@ export default function Checkout() {
         }
 
         setProduct([]);
-        alert("Compra realizada con éxito!");
     };
 
     return (
